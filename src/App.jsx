@@ -10,6 +10,7 @@ import Products from "./pages/Products";
 import Analytics from "./pages/Analytics";
 import Users from "./pages/Users";
 import Admin from "./pages/pages.admin/Admin";
+import Welcome from "./pages/Welcome"
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
       <Route path="/" element={<Navigate to="/login" />} />
 
       <Route path="/login" element={<Login />} />
+        <Route path="welcome" element={<Welcome />} />
 
       {/* Dashboard Layout Route */}
       <Route path="/dashboard" element={<Dashboard />}>

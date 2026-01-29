@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({ email: "", password: "" });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
@@ -17,35 +14,18 @@ const Login = () => {
 
   const togglePassword = () => setShowPassword(!showPassword);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    try {
-      await axios.post("http://localhost:5000/auth/login", inputs, {
-        headers: { "Content-Type": "application/json" },
-      });
-      navigate("/dashboard");
-    } catch (err) {
-      setError(err.response?.data?.message || "Login failed");
-    } finally {
-      setLoading(false);
-    }
+    // PROTOTYPE: direct redirect
+    navigate("/dashboard");
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-8 text-black">
-      {/* Desktop card div */}
-      <div className="hidden md:flex w-full max-w-md bg-white rounded-xl p-8 shadow-lg  md:hover:ring-yellow-400 transition flex-col items-center">
+      {/* Desktop */}
+      <div className="hidden md:flex w-full max-w-md bg-white rounded-xl p-8 shadow-lg transition flex-col items-center">
         <img src="/HYG.png" alt="Logo" className="h-20 w-50 object-contain mb-6" />
         <h2 className="text-3xl font-bold mb-6 text-center">Welcome Back</h2>
-
-        {error && (
-          <div className="mb-4 text-sm text-red-600 bg-red-100 p-3 rounded-md w-full text-center">
-            {error}
-          </div>
-        )}
 
         <form onSubmit={handleSubmit} className="w-full space-y-4">
           {/* Email */}
@@ -83,31 +63,22 @@ const Login = () => {
           {/* Submit */}
           <button
             type="submit"
-            disabled={loading}
-            className={`w-full py-3 rounded-full font-semibold text-black transition transform ${
-              loading
-                ? "bg-gray-300 cursor-not-allowed"
-                : "bg-gradient-to-r from-yellow-300 to-yellow-400 hover:scale-105 hover:from-yellow-400 hover:to-yellow-500"
-            }`}
+            className="w-full py-3 rounded-full font-semibold text-black transition transform bg-gradient-to-r from-yellow-300 to-yellow-400 hover:scale-105 hover:from-yellow-400 hover:to-yellow-500"
           >
-            {loading ? "Logging in..." : "Login"}
+            Login
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-500 mt-6">&copy; {new Date().getFullYear()} HYG Company</p>
+        <p className="text-center text-sm text-gray-500 mt-6">
+          &copy; {new Date().getFullYear()} HYG Company
+        </p>
       </div>
 
-      {/* Mobile / iOS form */}
+      {/* Mobile */}
       <div className="md:hidden w-full max-w-sm flex flex-col items-center">
         <img src="/HYG.png" alt="Logo" className="h-20 w-50 object-contain mb-6" />
         <h2 className="text-3xl font-bold mb-6 text-center">Welcome Back</h2>
 
-        {error && (
-          <div className="mb-4 text-sm text-red-600 bg-red-100 p-3 rounded-md w-full text-center">
-            {error}
-          </div>
-        )}
-
         <form onSubmit={handleSubmit} className="w-full space-y-4">
           {/* Email */}
           <div>
@@ -144,18 +115,15 @@ const Login = () => {
           {/* Submit */}
           <button
             type="submit"
-            disabled={loading}
-            className={`w-full py-3 rounded-full font-semibold text-black transition transform ${
-              loading
-                ? "bg-gray-300 cursor-not-allowed"
-                : "bg-gradient-to-r from-yellow-300 to-yellow-400 hover:scale-105 hover:from-yellow-400 hover:to-yellow-500"
-            }`}
+            className="w-full py-3 rounded-full font-semibold text-black transition transform bg-gradient-to-r from-yellow-300 to-yellow-400 hover:scale-105 hover:from-yellow-400 hover:to-yellow-500"
           >
-            {loading ? "Logging in..." : "Login"}
+            Login
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-500 mt-6">&copy; {new Date().getFullYear()} HYG Company</p>
+        <p className="text-center text-sm text-gray-500 mt-6">
+          &copy; {new Date().getFullYear()} HYG Company
+        </p>
       </div>
     </div>
   );
